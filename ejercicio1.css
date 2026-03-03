@@ -834,3 +834,72 @@ body::after {
         grid-template-columns: 1fr;
     }
 }
+
+/* === Real Time Results (Dynamic) === */
+.real-time-result {
+    animation: fadeIn 0.4s ease-out;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    border: 1px dashed var(--border-glass);
+}
+
+.clocks-comparison.small {
+    gap: 12px;
+    margin-bottom: 0;
+    justify-content: center;
+}
+
+.mirror-clock-mini {
+    background: linear-gradient(135deg, rgba(6, 182, 212, 0.1), transparent);
+    border: 1px solid rgba(6, 182, 212, 0.2);
+    padding: 12px;
+    min-width: 100px;
+    border-radius: var(--radius-md);
+}
+
+.real-clock-mini {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), transparent);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    padding: 12px;
+    min-width: 100px;
+    border-radius: var(--radius-md);
+}
+
+.mirror-display-mini,
+.real-display-mini {
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.mirror-display-mini {
+    background: var(--gradient-mirror);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.real-display-mini {
+    background: var(--gradient-real);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.arrow-mini {
+    font-size: 1.5rem;
+    color: var(--accent-purple);
+    font-weight: bold;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

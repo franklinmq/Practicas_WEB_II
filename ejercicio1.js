@@ -81,7 +81,68 @@ document.addEventListener('DOMContentLoaded', function () {
         // Cursor pointer para los ejemplos
         card.style.cursor = 'pointer';
     });
+
+    // === Lógica de Tiempo Real ===
+    const horaSelect = document.getElementById('hora');
+    const minutoSelect = document.getElementById('minuto');
+    const realTimeResult = document.getElementById('realTimeResult');
+    const rtMirror = document.getElementById('rtMirror');
+    const rtReal = document.getElementById('rtReal');
+
+    function actualizarTiempoReal() {
+        const h = parseInt(horaSelect.value);
+        const m = parseInt(minutoSelect.value);
+
+        if (!isNaN(h) && !isNaN(m)) {
+            // Mostrar el contenedor
+            realTimeResult.style.display = 'block';
+
+            // Formatear hora espejo
+            const horaEspejo = `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}`;
+            rtMirror.textContent = horaEspejo;
+
+            // Calcular hora real
+            let realH = 12 - h;
+            let realM = 60 - m;
+
+            if (m > 0) {
+                realH = realH - 1;
+            } else {
+                realM = 0;
+            }
+
+            if (realH <= 0) realH += 12;
+            if (realH > 12) realH -= 12;
+
+            const horaReal = `${realH.toString().padStart(2, '0')}:${realM.toString().padStart(2, '0')}`;
+            rtReal.textContent = horaReal;
+
+            // Pequeña animación de brillo al actualizar
+            rtReal.classList.add('pulse-text');
+            setTimeout(() => rtReal.classList.remove('pulse-text'), 300);
+        }
+    }
+
+    if (horaSelect && minutoSelect) {
+        horaSelect.addEventListener('change', actualizarTiempoReal);
+        minutoSelect.addEventListener('change', actualizarTiempoReal);
+    }
 });
+
+// CSS adicional para efectos en tiempo real
+const dynamicStyle = document.createElement('style');
+dynamicStyle.textContent = `
+    @keyframes pulseText {
+        0% { transform: scale(1); opacity: 1; }
+        50% { transform: scale(1.1); opacity: 0.8; }
+        100% { transform: scale(1); opacity: 1; }
+    }
+    .pulse-text {
+        animation: pulseText 0.3s ease-out;
+    }
+`;
+document.head.appendChild(dynamicStyle);
+
 
 // CSS para animación de shake (inyectado dinámicamente)
 const shakeStyle = document.createElement('style');
